@@ -7,20 +7,18 @@
 
 #.............Libraries and Dependancies...............................................
 
-import scipy as sp
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as pplt
-import matplotlib as plt
-import wave as wv
+from scipy import *
+from numpy import *
+from pandas import *
+from matplotlib import*
+from wave import *
 from scipy.io import wavfile
 
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 
-import waveform as wf
-import spectrum as sp
+
 
 
 
@@ -30,7 +28,52 @@ root = Tk()
 root.title("Spectrum Analyzer")
 
 #................inputs.................................................................
+
+
+
+
+
 #...............Reading the .wav Data...................................................
+
+input_spectrum = []
+input_signal = []
+
+
+class signalData:
+    def __init__(self,sig_name, inp_sig, inp_spect, out_wavfo, out_spectr, f_samp, t_len, freq_res):
+        self.sig_name  = sig_name
+        self.inp_sig = inp_sig
+        self.inp_spect = inp_spect 
+        self.out_wavfo = out_wavfo
+        self.out_spectr = out_spectr
+        self.f_samp = f_samp
+        self.t_len  = t_len
+        self.freq_res = freq_res 
+
+        
+        
+        input_spectrum = inp_spect
+        input_signal = inp_sig
+
+
+
+
+    def signalDataTransform(s_t):
+        if input_spectrum ==[]:
+            out_spectr = fft.fftshift( fft(input_signal) )
+            return out_spectr
+        elif input_signal == []:
+            out_wavfo = ifft( fft.ifftshift())
+            return out_wavfo
+        else:
+            return "Input is invalid"
+
+    
+    
+        
+
+
+
 
 
 
