@@ -13,6 +13,7 @@ from pandas import *
 from matplotlib import*
 from wave import *
 from scipy.io import wavfile
+from screeninfo import get_monitors
 
 from tkinter import *
 from tkinter import filedialog
@@ -20,13 +21,18 @@ from tkinter import messagebox
 
 
 
+# Root Tkinter window
+
+
 
 root = Tk()
 root.title("Spectrum Analyzer")
+root.geometry('maximized')
 
 
-#...............Reading the .wav Data...................................................
 
+
+# Accepted File Types
 
 filetypesSignal = (
     ('text files', '*.txt'),
@@ -47,6 +53,7 @@ filetypesSpectrum = (
 
 class signalData:
     def __init__(self,sig_name, inp_sig, inp_spect, out_wavfo, out_spectr, f_samp, t_len, freq_res):
+
         self.sig_name  = sig_name
         self.inp_sig = inp_sig
         self.inp_spect = inp_spect 
@@ -56,16 +63,16 @@ class signalData:
         self.t_len  = t_len
         self.freq_res = freq_res 
 
-        
-        if (bool(inp_spect)==False):
 
+
+
+        if (bool(inp_spect)==False) and (bool(inp_sig)==True):
+               
             out_spectr = fft.fftshift(fft(inp_sig))
-
-        elif (bool(inp_sig)==False):
+        
+        elif (bool(inp_sig)==False) and (bool(inp_spect)==True):
             
             out_wavfo = ifft( fft.ifftshift(inp_spect))
-        else:
-            inputFileTypeErrorVar = "Invalid Input File"
 
 
 
@@ -74,7 +81,17 @@ def loadWavFile():
     global fileSignalData 
     fileSignalData = filedialog.askopenfile(filetypes=filetypesSignal)
 
+    
+    global input_signal_object
+    input_signal_object = signalData(inp_sig=fileSignalData, t_len=len(fileSignalData))
+
+    
+
     return None
+
+
+
+
 
 
 def loadSpectrumFile():
@@ -82,7 +99,11 @@ def loadSpectrumFile():
     global fileSpectrumData 
     fileSpectrumData  = filedialog.askopenfile(filetypes=filetypesSpectrum)
 
+    global input_spectrum_object
+    input_spectrum_object = signalData(fileSpectrumData)
+
     return None
+
 
 
 
