@@ -21,22 +21,28 @@ from tkinter import messagebox
 
 
 
-
-####################  Structure of the GUI   ######################
-
 root = Tk()
 root.title("Spectrum Analyzer")
-
-#................inputs.................................................................
-
-
-
 
 
 #...............Reading the .wav Data...................................................
 
-input_spectrum = []
-input_signal = []
+
+filetypesSignal = (
+    ('text files', '*.txt'),
+    ('mp3 files', '*.mp3'),
+    ('wav files', '*.wav'),
+    ('data files', '*.dat'),
+    ('ASCII files', '*.asc')
+)
+
+filetypesSpectrum = (
+    ('text files', '*.txt'),
+    ('data files', '*.dat'),
+    ('ASCII files', '*.asc')
+)
+
+
 
 
 class signalData:
@@ -51,61 +57,70 @@ class signalData:
         self.freq_res = freq_res 
 
         
-        
-        input_spectrum = inp_spect
-        input_signal = inp_sig
+        if (bool(inp_spect)==False):
 
+            out_spectr = fft.fftshift(fft(inp_sig))
 
-
-
-    def signalDataTransform(s_t):
-        if input_spectrum ==[]:
-            out_spectr = fft.fftshift( fft(input_signal) )
-            return out_spectr
-        elif input_signal == []:
-            out_wavfo = ifft( fft.ifftshift())
-            return out_wavfo
+        elif (bool(inp_sig)==False):
+            
+            out_wavfo = ifft( fft.ifftshift(inp_spect))
         else:
-            return "Input is invalid"
+            inputFileTypeErrorVar = "Invalid Input File"
 
+
+
+def loadWavFile():
     
+    global fileSignalData 
+    fileSignalData = filedialog.askopenfile(filetypes=filetypesSignal)
+
+    return None
+
+
+def loadSpectrumFile():
     
-        
+    global fileSpectrumData 
+    fileSpectrumData  = filedialog.askopenfile(filetypes=filetypesSpectrum)
+
+    return None
 
 
 
+openwav = Button(root, text = "Open .wav File", bg = "#474848", fg = "white", command = loadWavFile, pady=10, padx=10)
+#expinput = Entry(root,width=50, borderwidth=5)
+opendat = Button(root, text="Open .DAT File", bg= "#474848",fg = "white", command = loadSpectrumFile, pady=10, padx=10)
 
 
-
-openwav = Button(root, text = "Open .wav File", bg = "black", fg = "Yellow", command = filedialog.askopenfilenames, pady=10, padx=10)
-expinput = Entry(root,width=50, borderwidth=5)
-opendat = Button(root, text="Open .DAT File", bg= "black",fg = "Yellow", command = filedialog.askopenfilenames, pady=10, padx=10)
 
 
 def radio_changed():
     current_radio = selected.get()
     if (current_radio==2):
         openwav.grid(row=2, column=2)
-        expinput.grid_remove()
+        #expinput.grid_remove()
         opendat.grid_remove()
-    elif (current_radio==1):
-        openwav.grid_remove()
-        opendat.grid_remove()
-        expinput.grid(row=2, column=1, padx=20, pady=10)
+
+        
+    #elif (current_radio==1):
+    #    openwav.grid_remove()
+    #    opendat.grid_remove()
+    #    #expinput.grid(row=2, column=1, padx=20, pady=10)
+    
+    
     elif (current_radio==3):
         openwav.grid_remove()
-        expinput.grid_remove()
+        #expinput.grid_remove()
         opendat.grid(row=2, column=3)
 
     
 
 
 selected = IntVar()
-rad1 = Radiobutton(root,text='Enter Analytical Expression', value=1, variable=selected, padx=30, pady= 15, command=radio_changed)
+#rad1 = Radiobutton(root,text='Enter Analytical Expression', value=1, variable=selected, padx=30, pady= 15, command=radio_changed)
 rad2 = Radiobutton(root,text='Import .wav file', value=2, variable=selected, padx=30, pady= 15, command=radio_changed)
 rad3 = Radiobutton(root,text='Import Spectrum Data', value=3, variable=selected, padx=30, pady= 15, command=radio_changed)
 
-rad1.grid(row=1, column=1)
+#rad1.grid(row=1, column=1)
 rad2.grid(row=1, column=2)
 rad3.grid(row=1, column=3)
 
