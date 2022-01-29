@@ -5,13 +5,14 @@
 #
 #
 
-#.............Libraries and Dependancies...............................................
+from GUI import SpectrumAnalyzerGUI
+from SignalManipulation import SignalData
+from Plotting import DataPlotDisplay
 
 
-from pandas import *
-from matplotlib import*
-from wave import *
-from scipy.io import wavfile
+if __name__=="main":
+    main_gui = SpectrumAnalyzerGUI()
+    
 
 
 
@@ -30,4 +31,4 @@ from scipy.io import wavfile
 
 
 
-#............mainloop....................................................................
+
