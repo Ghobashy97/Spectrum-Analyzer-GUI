@@ -1,5 +1,6 @@
-from scipy import *
-from numpy import *
+import scipy as sp
+import numpy as np
+import librosa as lr
 
 
 class SignalData:
@@ -16,8 +17,8 @@ class SignalData:
 
         if (bool(inp_spect) == False) and (bool(inp_sig) == True):
 
-            out_spectr = fft.fftshift(fft(inp_sig))
+            out_spectr = sp.fftshift(sp.fft(inp_sig))
 
         elif (bool(inp_sig) == False) and (bool(inp_spect) == True):
 
-            out_wavfo = ifft(fft.ifftshift(inp_spect))
+            out_wavfo = sp.ifft(sp.ifftshift(inp_spect))

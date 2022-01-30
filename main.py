@@ -6,13 +6,11 @@
 #
 
 from GUI import SpectrumAnalyzerGUI
-from SignalManipulation import SignalData
-from Plotting import DataPlotDisplay
 
 
 if __name__=="main":
     main_gui = SpectrumAnalyzerGUI()
-    
+
 
 
 
