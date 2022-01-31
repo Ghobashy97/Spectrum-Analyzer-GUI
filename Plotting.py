@@ -1,5 +1,7 @@
-from matplotlib import *
-from SignalManipulation import SignalData
+import scipy as sp
+import numpy as np
+from matplotlib import mpl
+
 
 
 class DataPlotDisplay:
