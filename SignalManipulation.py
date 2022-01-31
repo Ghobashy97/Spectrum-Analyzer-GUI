@@ -5,7 +5,6 @@ import librosa as lr
 
 class SignalData:
     def __init__(self, sig_name, inp_sig, inp_spect, out_wavfo, out_spectr, f_samp, t_len, freq_res):
-
         self.sig_name = sig_name
         self.inp_sig = inp_sig
         self.inp_spect = inp_spect

@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
 from tkinter.simpledialog import SimpleDialog
+from tkinter.tix import Tree
+from venv import create
 from SignalManipulation import SignalData
 from Plotting import DataPlotDisplay
 from scipy.io.wavfile import read, write
@@ -9,7 +11,7 @@ import librosa as lr
 
 # from Plotting import .....
 
-filetypesSignal = (
+filetypesSignal=(
     ('text files', '*.txt'),
     ('mp3 files', '*.mp3'),
     ('wav files', '*.wav'),
@@ -17,7 +19,7 @@ filetypesSignal = (
     ('ASCII files', '*.asc')
 )
 
-filetypesSpectrum = (
+filetypesSpectrum=(
     ('text files', '*.txt'),
     ('data files', '*.dat'),
     ('ASCII files', '*.asc')
@@ -67,8 +69,16 @@ class SpectrumAnalyzerGUI:
             input_spectrum_object = SignalData(file_spectrum_data)
 
             return None
-        
-                
+
+        # def gui_data_display(input_object):            
+
+        #  if bool(input_signal_object)==True and bool(input_spectrum_object)==False:
+         #       create_display_objects = DataPlotDisplay(input_signal_object)
+
+        #    elif bool(input_signal_object)==False and bool(input_spectrum_object)==True:
+        #        create_display_objects = DataPlotDisplay(input_spectrum_object)
+
+        #    pass
 
         panel1 = PanedWindow(orient=HORIZONTAL)
         panel1.pack(side=TOP)
@@ -93,11 +103,12 @@ class SpectrumAnalyzerGUI:
 
         rad3 = Radiobutton(panel1,text='Import Spectrum Data', value=3,
                             variable=selected, padx=30, pady=15,
-                            command=radio_changed)
+                            command=radio_changed)        
 
-        # rad1.grid(row=1, column=1)
         rad2.pack(side=LEFT)
         rad3.pack(side=RIGHT)
+
+        # gui_data_display()
 
         root.mainloop()
 
